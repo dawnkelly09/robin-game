@@ -1,0 +1,20 @@
+:root {
+    /*grass colors*/
+    --darkest-green: #007f5f;
+    --dark-green: #2b9348;
+    --med-green: #55a630;
+    --light-green: #aacc00;
+    --lemon-lime: #d4d700;
+    --brightest-lime: #eeef20;
+    /*robin theme colors*/
+    --gunmetal: #293241;
+    --sienna: #ee6c4d;
+    --robin-eggs: #e0fbfc;
+    --medium-blue: #98c1d9;
+    --blue: #3d5a80;
+}   
+
+canvas {
+    border: solid 1px var(--darkest-green);
+    border-radius: 5%;
+}
