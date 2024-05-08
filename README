@@ -1,0 +1,12 @@
+Early Bird
+
+A game where you hunt for birds. As a worm.
+
+Built for: Celestia Infinite Space Bazaar hackathon
+
+Background: Last summer I was watching the American Robins hop around in my backyard and realized they move as if powered by an algorithm while hunting for worms. I had the idea to make a silly game to imitate their process. This is that game. 
+
+Tech used:
+
+Game: the game is built using the HTML5 canvas element & javascript
+
