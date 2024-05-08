@@ -128,10 +128,16 @@ function checkForWorms(x, y) {
 }
 
 function drawRobin() {
-    //draw robin at current position
-    //TODO replace with my art or image
-    ctx.fillStyle = 'red';
-    ctx.fillRect(robinX, robinY, 50, 50);
+    //load the robin image
+    const robinImg = new Image();
+    robinImg.src = "https://cyan-interesting-takin-110.mypinata.cloud/ipfs/QmaKqEGonantGEUkEQszqoS5v6Yy3VBwZJ7f5hjHSiYCr5"
+
+    // once image is loaded, draw it at the current position
+    robinImg.onload = function () {
+        ctx.drawImage(robinImg, robinX, robinY, 50, 50);
+    };
+
+    
     //use for testing to see coordinates of current robin position
     //console.log(robinX, robinY)
 }
