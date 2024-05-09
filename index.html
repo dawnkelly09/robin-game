@@ -15,14 +15,27 @@
             <div class="rules">
                 <h1>Early Bird 🪱🐦</h1>
                 <h2>Can you find & catch the worms?</h2>
-                <p>1) Use your arrow keys to pick the bird's direction</p>
+                <p>1) Use arrow keys or buttons to pick the bird's direction</p>
                 <p>2) The bird decides how many steps to move</p>
                 <p>3) If the bird finds a worm, it collects it and adds to your total</p>
             </div>
             <div class="score-box">
                 <p>Total worms found: <span id="worms-found">0</span></p>
             </div>
+            <div class="button-row">
+                <button id="upButton">UP ⬆️</button>
+                <button id="leftButton"> ⬅️ LEFT</button>
+                <button id="rightButton">RIGHT ➡️</button>
+                <button id="downButton">DOWN ⬇️</button>
+            </div>
         </section>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <p>Do you want to check here for a worm?</p>
+                <button id="yesButton">Yes</button>
+                <button id="noButton">No</button>
+            </div>
+        </div>
     <!--establishes canvas element and size-->
         <canvas id="canvas" width="600" height="600">
             Canvas which displays the Early Bird game. 

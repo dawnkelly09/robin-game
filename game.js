@@ -18,6 +18,14 @@ let robinY = 0;
 const canvasWidth = canvas.width;
 const canvasHeight = canvas.height;
 
+// load images for worm and sad face
+const wormImage = new Image();
+wormImage.src = "https://cyan-interesting-takin-110.mypinata.cloud/ipfs/QmPn5sKKGL9pDv4qmTfe4HEvf37exJchnRAo8ygjKbhmNd";
+
+const sadFaceImage = new Image();
+sadFaceImage.src = "https://cyan-interesting-takin-110.mypinata.cloud/ipfs/QmfZHhYKx6D2zgkfyXKpvPwRPxR9yaeyBbtFNP6jRt9xfb";
+
+
 //define array to store worm positions
 let worms = [];
 
@@ -52,6 +60,38 @@ const ARROW_DOWN = 40;
 // event listener for arrow key presses
 document.addEventListener('keydown', handleKeyDown);
 
+// event listeners for 'Yes' and 'No' buttons on modal
+document.getElementById("yesButton").addEventListener("click", function() {
+    // check for worms at new position
+    checkForWorms(robinX, robinY);
+    // close the modal
+    closeModal();
+});
+
+document.getElementById("noButton").addEventListener("click", function() {
+    // close the modal
+    closeModal();
+});
+
+// Event listeners for directional buttons
+document.getElementById("upButton").addEventListener("click", function() {
+    moveRobin(0, -1); // Move up (decrease y coordinate)
+});
+
+document.getElementById("downButton").addEventListener("click", function() {
+    moveRobin(0, 1); // Move down (increase y coordinate)
+});
+
+document.getElementById("leftButton").addEventListener("click", function() {
+    moveRobin(-1, 0); // Move left (decrease x coordinate)
+});
+
+document.getElementById("rightButton").addEventListener("click", function() {
+    moveRobin(1, 0); // Move right (increase x coordinate)
+});
+
+
+
 // function to respond to arrow key presses 
 function handleKeyDown(event) {
     switch(event.keyCode) {
@@ -70,6 +110,16 @@ function handleKeyDown(event) {
     }
 }
 
+function openModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "none";
+}
+
 function moveRobin(dx, dy) {
     // generate random # of moves btwn 2-6 inclusive
     // how it works: math.random generates decimal btwn 0-1
@@ -77,7 +127,6 @@ function moveRobin(dx, dy) {
         // math.floor rounds down to nearest integer 0-4
         // add 2 to answer to fit desired 2-6 inclusive range
     const randomMoves = Math.floor(Math.random() * 5) + 2;
-
 
     // calculate the new position based on random movement distance
     const newRobinX = robinX + dx * randomMoves *50; 
@@ -89,16 +138,42 @@ function moveRobin(dx, dy) {
         robinX = newRobinX;
         robinY = newRobinY;
 
-        // check for worms at new position
-        checkForWorms(robinX, robinY);
-
         // Clear canvas and redraw background
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.drawImage(background, 0, 0);
 
         // Draw robin at new position
         drawRobin();
+
+        // slight delay to allow robin to draw before prompt displays
+        setTimeout(function () {
+            // ask user if they want to check for worms
+            openModal();
+        }, 100); //can adjust delay time in milliseconds here
     }
+}
+
+// draws a worm above the robin if worm is found
+function drawWorm() {
+    ctx.drawImage(wormImage, robinX, robinY - 50, 50, 50);
+}
+// draws a sad face above the robin if no worm is found
+function drawSadFace() {
+    ctx.drawImage(sadFaceImage, robinX, robinY - 50, 50, 50); 
+}
+// fades out an image over time
+// call this right after drawing an image to fade it over time
+function fadeOutImage(image, duration) {
+    let alpha = 1.0;
+    const interval = setInterval(function() {
+        alpha -= 0.05; // Adjust fading speed as needed
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(image, robinX, robinY - 50, 50, 50); // Adjust position as needed
+        if (alpha <= 0) {
+            clearInterval(interval);
+            ctx.globalAlpha = 1.0; // Reset global alpha
+        }
+    }, duration / 20); // Adjust interval as needed
 }
 
 function checkForWorms(x, y) {
@@ -123,9 +198,10 @@ function checkForWorms(x, y) {
 
             // exit loop since can only collect one worm per move
             break;
-        }
+        } 
     }
 }
+
 
 function drawRobin() {
     //load the robin image
@@ -136,8 +212,6 @@ function drawRobin() {
     robinImg.onload = function () {
         ctx.drawImage(robinImg, robinX, robinY, 50, 50);
     };
-
-    
     //use for testing to see coordinates of current robin position
     //console.log(robinX, robinY)
 }

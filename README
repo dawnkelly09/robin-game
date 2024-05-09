@@ -8,5 +8,5 @@ Background: Last summer I was watching the American Robins hop around in my back
 
 Tech used:
 
-Game: the game is built using the HTML5 canvas element & javascript
+Game: the game is built using the HTML5 canvas element & javascript with images stored on IPFS & pinned by Pinata.
 
