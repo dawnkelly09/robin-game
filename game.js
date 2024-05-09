@@ -161,20 +161,7 @@ function drawWorm() {
 function drawSadFace() {
     ctx.drawImage(sadFaceImage, robinX, robinY - 50, 50, 50); 
 }
-// fades out an image over time
-// call this right after drawing an image to fade it over time
-function fadeOutImage(image, duration) {
-    let alpha = 1.0;
-    const interval = setInterval(function() {
-        alpha -= 0.05; // Adjust fading speed as needed
-        ctx.globalAlpha = alpha;
-        ctx.drawImage(image, robinX, robinY - 50, 50, 50); // Adjust position as needed
-        if (alpha <= 0) {
-            clearInterval(interval);
-            ctx.globalAlpha = 1.0; // Reset global alpha
-        }
-    }, duration / 20); // Adjust interval as needed
-}
+
 
 function checkForWorms(x, y) {
     console.log(`Checking for worms at position (${x}, ${y})`);
@@ -196,8 +183,6 @@ function checkForWorms(x, y) {
             // set flag to true since worm is found
             wormFound = true;
             drawWorm();
-            // worm fades after one second
-            setTimeout(() => fadeOutImage(wormImage, 3000), 1000);
             // exit loop since can only collect one worm per move
             break;
         } 
@@ -205,7 +190,6 @@ function checkForWorms(x, y) {
     // if no worm is found
     if (!wormFound) {
         drawSadFace();
-        setTimeout(() => fadeOutImage(sadFaceImage, 3000), 1000);
     }
 }
 
