@@ -178,6 +178,8 @@ function fadeOutImage(image, duration) {
 
 function checkForWorms(x, y) {
     console.log(`Checking for worms at position (${x}, ${y})`);
+    // serves as a flag variable to indicate if a worm is found
+    let wormFound = false;
     //for each position in array of worm positions
     for (let i = 0; i < worms.length; i++) {
         // use to test if position being check is expected coordinates
@@ -191,14 +193,19 @@ function checkForWorms(x, y) {
             totalWormsFound++;
             //update UI to display players total worms found
             updateUI();
-
-            //can add sounds or animation here
-            // playWormCollectionSound();
-            // showWormCollectionAnimation();
-
+            // set flag to true since worm is found
+            wormFound = true;
+            drawWorm();
+            // worm fades after one second
+            setTimeout(() => fadeOutImage(wormImage, 3000), 1000);
             // exit loop since can only collect one worm per move
             break;
         } 
+    }
+    // if no worm is found
+    if (!wormFound) {
+        drawSadFace();
+        setTimeout(() => fadeOutImage(sadFaceImage, 3000), 1000);
     }
 }
 
