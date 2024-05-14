@@ -90,6 +90,8 @@ document.getElementById("rightButton").addEventListener("click", function() {
     moveRobin(1, 0); // Move right (increase x coordinate)
 });
 
+// Event listener for claim button
+document.getElementById("claimButton").addEventListener("click", claimWorms);
 
 
 // function to respond to arrow key presses 
@@ -210,5 +212,12 @@ function drawRobin() {
 function updateUI() {
     // update UI element to display player's total worms found
     document.getElementById('worms-found').innerText = totalWormsFound
+}
+
+async function claimWorms() {
+    // call the Early Bird contract to claim worms
+    const contactAddress = "0xdfBc6d30DB8cA564D93a1c37f78eA1D1A0d312Cf";
+    const contractAbi = [];
+    // TODO finish out this function
 }
 
