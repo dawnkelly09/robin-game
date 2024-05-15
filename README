@@ -10,3 +10,11 @@ Tech used:
 
 Game: the game is built using the HTML5 canvas element & javascript with images stored on IPFS & pinned by Pinata.
 
+Blockchain things:
+
+1) $WRM token: 0xdfBc6d30DB8cA564D93a1c37f78eA1D1A0d312Cf
+deployed on a custom L3 using Mode, Optimism, and Celestia as the data layer. Chain graciously deployed by CryptoFede who was kind enough to let me use it to deploy my contracts: https://app.conduit.xyz/published/view/hello-l3-world-g5x787qets
+
+2) EarlyBird.sol: 0x9AfE69F67958F2186864D98D1fEe3ca3D880004D
+Simple smart contract to receive totalWormsFound from the game, transfer a matching number of $WRM token to the user's wallet, and emit an event worms were claimed by the player. This is deployed on the same custom L3 as $WRM token.
+

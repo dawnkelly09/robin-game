@@ -90,8 +90,34 @@ document.getElementById("rightButton").addEventListener("click", function() {
     moveRobin(1, 0); // Move right (increase x coordinate)
 });
 
-// Event listener for claim button
-document.getElementById("claimButton").addEventListener("click", claimWorms);
+// Event listener for claim button with function call to EarlyBird.sol claimWorms
+document.getElementById("claimButton").addEventListener("click", async function() {
+    try {
+        // call claimWorms on EarlyBird contract
+        const contractAddress = "0x9AfE69F67958F2186864D98D1fEe3ca3D880004D";
+        const contractAbi = [[ { "inputs": [ { "internalType": "uint256", "name": "totalWormsFound", "type": "uint256" } ], "name": "claimWorms", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "_tokenContractAddress", "type": "address" } ], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "player", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "worms", "type": "uint256" } ], "name": "WormsClaimed", "type": "event" }, { "inputs": [], "name": "tokenContractAddress", "outputs": [ { "internalType": "address", "name": "", "type": "address" } ], "stateMutability": "view", "type": "function" } ]];
+        const provider = new ethers.providers.JsonRpcProvider(); // Replace this with your Ethereum provider
+        const signer = provider.getSigner(); // Replace this with your signer object
+
+        const earlyBirdContract = new ethers.Contract(contractAddress, contractAbi, signer);
+
+        // Call the claimWorms function on the EarlyBird contract
+        await earlyBirdContract.claimWorms(totalWormsFound);
+       // assign className show to toast div
+        claimButton.className = "show";
+        // after 3 seconds, remove className show from toast div
+        setTimeout(function(){ claimButton.className = claimButton.className.replace("show", "");}, 3000);
+
+        // Reset totalWormsFound to zero
+        totalWormsFound = 0;
+
+        // Optionally, you can add UI updates here to indicate that worms have been claimed
+    } catch (error) {
+        // Handle error
+        console.error("Error: claim unsuccessful", error);
+        // Optionally, you can display an error message to the user
+    }
+});
 
 
 // function to respond to arrow key presses 
@@ -214,10 +240,7 @@ function updateUI() {
     document.getElementById('worms-found').innerText = totalWormsFound
 }
 
-async function claimWorms() {
-    // call the Early Bird contract to claim worms
-    const contactAddress = "0xdfBc6d30DB8cA564D93a1c37f78eA1D1A0d312Cf";
-    const contractAbi = [];
-    // TODO finish out this function
-}
+
+
+
 
